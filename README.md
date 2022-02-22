@@ -1,6 +1,6 @@
 # Bouncer
 
-[![Latest Stable Version](http://poser.pugx.org/askonomm/bouncer/v)](https://packagist.org/packages/askonomm/bouncer))
+[![Latest Stable Version](http://poser.pugx.org/askonomm/bouncer/v)](https://packagist.org/packages/askonomm/bouncer)
 
 An extensible validation library for your data with sane defaults.
 
