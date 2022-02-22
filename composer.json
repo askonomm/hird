@@ -11,7 +11,8 @@
     "authors": [
         {
             "name": "Asko Nomm",
-            "email": "asko@bien.ee"
+            "email": "asko@bien.ee",
+            "homepage": "https://bien.ee"
         }
     ],
     "require-dev": {
