@@ -15,6 +15,9 @@
             "homepage": "https://bien.ee"
         }
     ],
+    "require": {
+        "php": "^8.1"
+    },
     "require-dev": {
         "pestphp/pest": "^1.21"
     },
