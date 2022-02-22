@@ -2,8 +2,16 @@
 
 namespace Askonomm\Validator;
 
-class ValidatorRules
+/**
+ * Undocumented class
+ */
+class Validators
 {
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
     public static function len(): array
     {
         return [
@@ -20,6 +28,11 @@ class ValidatorRules
         ];
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
     public static function email(): array
     {
         return [
@@ -36,6 +49,11 @@ class ValidatorRules
         ];
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return array
+     */
     public static function required(): array
     {
         return [
