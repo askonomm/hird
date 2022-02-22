@@ -46,7 +46,7 @@ You can also get the first error rather than all errors by using the method `$bo
 
 ## Built-in validators
 
-There are a number of built-in validators avaiable for use by default. If you want to remove a built-in validator, you can remove one using the `$bouncer->removeValidator('rule-name')` method.
+There are a number of built-in validators available for use by default. If you want to remove a built-in validator, you can remove one using the `$bouncer->removeValidator('rule-name')` method.
 
 ### `email`
 
