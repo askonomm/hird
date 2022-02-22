@@ -31,6 +31,8 @@ For example, say we have a validator called `len` which takes a modifier that le
 An example usage of Bouncer looks like this:
 
 ```php
+use Askonomm\Bouncer\Bouncer;
+
 $fields = ['email' => 'asko@bien.ee'];
 $rules = ['email' => 'required|email|len:5'];
 $bouncer = new Bouncer($fields, $rules);
@@ -53,6 +55,8 @@ There are a number of built-in validators avaiable for use by default. If you wa
 The `email` validator validates an e-mail address, and it is registered as the `email` rule.
 
 ```php
+use Askonomm\Bouncer\Bouncer;
+
 $fields = ['email' => 'asko@bien.ee'];
 $rules = ['email' => 'email'];
 $bouncer = new Bouncer($fields, $rules);
@@ -63,6 +67,8 @@ $bouncer = new Bouncer($fields, $rules);
 The `len` validator validates the length of a string, and it is registered as the `len` rule. The `len` validator also accepts, and requires, a modifier. A modifier can be passed to a rule by appending a color character `:` to it, and passing the modifier after it, like `len:8`.
 
 ```php
+use Askonomm\Bouncer\Bouncer;
+
 $fields = ['password' => 'SuperSecretPassword'];
 $rules = ['password' => 'len:10'];
 $bouncer = new Bouncer($fields, $rules);
@@ -73,6 +79,8 @@ $bouncer = new Bouncer($fields, $rules);
 The `required` validator validates the presence of value, and it is registered as the `required` rule. It will pass validation if the value is set and the value is not an empty string.
 
 ```php
+use Askonomm\Bouncer\Bouncer;
+
 $fields = ['password' => 'SuperSecretPassword'];
 $rules = ['password' => 'required'];
 $bouncer = new Bouncer($fields, $rules);
@@ -88,6 +96,8 @@ You can also create your own validators, or replace existing ones if you're not 
 A validator is a class that implements the `Validator` interface. A full example of a correct validator would look something like this:
 
 ```php
+use Askonomm\Bouncer\Validators\Validator;
+
 class EmailValidator implements Validator
 {
     /**
