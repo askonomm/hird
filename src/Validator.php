@@ -5,17 +5,32 @@ declare(strict_types=1);
 namespace Askonomm\Validator;
 
 /**
- * The Validator class takes in an array of fields and 
- * an array of validators. Each field must have a key 
- * that matches the validator key so that `Validator` class
- * would know how to connect the two, and the value of the each 
- * validator is a string that consists of rules separated by the 
- * `|` character.
+ * The Validator takes in an array of fields, an array of  
+ * validators and optionally an array of rules. If no rules 
+ * are provided, default rules will be used instead, which are:
  * 
- * Example use:
+ * - `ValidatorRules::len()`
+ * - `ValidatorRules::email()`
+ * - `ValidatorRules::required()`
+ * 
+ * The key of each item in the `$fields` array must correspond to the 
+ * the key of each item in the `$validators` array, so that Validator 
+ * would know how to connect the two to each other.
+ * 
+ * The `$validators` must have a value that is a string where the rules
+ * are separated by a `|` character, and each rule must match the key of
+ * the rule. Additionally, each rule can take in a modifier, where the name
+ * of the rule and the modifier is separated by a `:` character.
+ * 
+ * For example, say we have a rule called `len` which takes a modifier that
+ * lets that rule validate the length of a string, in such a case we'd write
+ * that rule as `len:8`, which would indicate using a `len` rule and passing 
+ * a modifier with the value `8` to it. 
+ * 
+ * Example usage of Validator: 
  * 
  * ```php
- * $fields = ['email' => 'test@example.com'];
+ * $fields = ['email' => 'asko@bien.ee'];
  * $validators = ['email' => 'required|email'];
  * $validator = new Validator($fields, $validators);
  * 
@@ -42,6 +57,11 @@ class Validator
         $this->validate();
     }
 
+    /**
+     * Returns the default, built-in validation rules.
+     *
+     * @return array
+     */
     public function defaultRules(): array
     {
         return [
@@ -94,12 +114,20 @@ class Validator
     /**
      * Returns an array of strings where each string 
      * is a single error that happened during validation.
+     * 
+     * @return array
      */
     public function errors(): array
     {
         return $this->errors;
     }
 
+    /**
+     * If errors are present, returns the first one.
+     * Otherwise returns an empty string.
+     *
+     * @return string
+     */
     public function firstError(): string
     {
         if (count($this->errors) > 0) {
