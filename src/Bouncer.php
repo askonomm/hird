@@ -2,10 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Askonomm\Validator;
+namespace Askonomm\Bouncer;
+
+use Askonomm\Bouncer\Validators\Validator;
+use Askonomm\Bouncer\Validators\LenValidator;
+use Askonomm\Bouncer\Validators\EmailValidator;
+use Askonomm\Bouncer\Validators\RequiredValidator;
 
 /**
- * The Validator takes in an array of fields, an array of  
+ * The Bouncer takes in an array of fields, an array of  
  * rules and optionally an array of validators. If no validators 
  * are provided, default validators will be used instead, which are:
  * 
@@ -14,7 +19,7 @@ namespace Askonomm\Validator;
  * - `Validators::required()`
  * 
  * The key of each item in the `$fields` array must correspond to the 
- * the key of each item in the `$rules` array, so that Validator 
+ * the key of each item in the `$rules` array, so that Bouncer 
  * would know how to connect the two to each other.
  * 
  * The `$rules` must have a value that is a string where the rules
@@ -28,15 +33,15 @@ namespace Askonomm\Validator;
  * that rule as `len:8`, which would indicate using a `len` validator and passing 
  * a modifier with the value `8` to it. 
  * 
- * Example usage of Validator: 
+ * Example usage of Bouncer: 
  * 
  * ```php
  * $fields = ['email' => 'asko@bien.ee'];
  * $rules = ['email' => 'required|email'];
- * $validator = new Validator($fields, $rules);
+ * $bouncer = new Bouncer($fields, $rules);
  * 
- * if ($validator->fails()) {
- *  return $validator->errors();
+ * if ($bouncer->fails()) {
+ *  return $bouncer->errors();
  * }
  * ```
  * 
@@ -53,19 +58,19 @@ namespace Askonomm\Validator;
  *      // validate your $value here and return true if 
  *      // the validation succeeded, or false if there was
  *      // an error, in which case the rule's error will be
- *      // added to the array of errors used by Validator.
+ *      // added to the array of errors used by Bouncer.
  *  }
  * ];
  * 
- * // Add validator to Validator
- * $validator = new Validator($fields, $rules, [
+ * // Add validator to Bouncer
+ * $bouncer = new Bouncer($fields, $rules, [
  *  'rule-name' => $validator
  * ]);
  * ```
  * 
  * If you want to also use the default validators, and add yours as an extra, 
  * simply join the array of your validators with the array that you get from 
- * `$validator->defaultValidators()`, for example:
+ * `$bouncer->defaultValidators()`, for example:
  * 
  * ```php
  * $validators = [
@@ -73,38 +78,64 @@ namespace Askonomm\Validator;
  *  'rule-name' => $validator,
  * ]);
  * 
- * $validator = new Validator($fields, $rules, $validators);
+ * $bouncer = new Bouncer($fields, $rules, $validators);
  * ```
+ * 
+ * Additionally, you can register your own validators via the 
+ * `$bouncer->registerValidator` function like this:
+ * 
+ * ```php
+ * $bouncer->registerValidator('rule-name', $validator]);
+ * ```
+ * 
  * @author Asko Nomm <asko@bien.ee>
  */
-class Validator
+class Bouncer
 {
     private array $errors = [];
+    private array $validators = [];
 
     public function __construct(
         private array $fields,
         private array $rules,
-        array $validators = [],
     ) {
-        if (empty($validators)) {
-            $this->validators = $this->defaultValidators();
-        }
-
+        $this->registerDefaultValidators();
         $this->validate();
     }
 
     /**
-     * Returns the default, built-in validators.
+     * Registers the default, built-in validators.
      *
      * @return array
      */
-    public function defaultValidators(): array
+    public function registerDefaultValidators(): void
     {
-        return [
-            'len' => Validators::len(),
-            'email' => Validators::email(),
-            'required' => Validators::required(),
-        ];
+        $this->registerValidator('len', (new LenValidator));
+        $this->registerValidator('email', (new EmailValidator));
+        $this->registerValidator('required', (new RequiredValidator));
+    }
+
+    /**
+     * Registers a validator to a `$ruleName`.
+     *
+     * @param string $ruleName
+     * @param Validator $validator
+     * @return void
+     */
+    public function registerValidator(string $ruleName, Validator $validator): void
+    {
+        $this->validators[$ruleName] = $validator;
+    }
+
+    /**
+     * Removes a validator assigned to the `$ruleName`.
+     *
+     * @param string $ruleName
+     * @return void
+     */
+    public function removeValidator(string $ruleName): void
+    {
+        unset($this->validators[$ruleName]);
     }
 
     /**
@@ -123,13 +154,12 @@ class Validator
                 if (str_contains($item, ':')) {
                     [$name, $modifier] = explode(':', $item);
 
-                    if (!$this->rules[$name]['validates']($value, $modifier)) {
-                        $this->errors[] = $this->rules[$name]['error']($field, $modifier);
+                    if (!$this->validators[$name]->validate($value, $modifier)) {
+                        $this->errors[] = $this->validators[$name]->composeError($field, $modifier);
                     }
                 } else {
-
-                    if (!$this->rules[$item]['validates']($value)) {
-                        $this->errors[] = $this->rules[$item]['error']($field);
+                    if (!$this->validators[$item]->validate($value)) {
+                        $this->errors[] = $this->validators[$item]->composeError($field);
                     }
                 }
             }

@@ -1,11 +1,11 @@
 {
-    "name": "askonomm/validator",
-    "description": "A modular validation library with sane default",
+    "name": "askonomm/bouncer",
+    "description": "An extensible validation library for your data with sane defaults.",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Askonomm\\Validator\\": "src/"
+            "Askonomm\\Bouncer\\": "src/"
         }
     },
     "authors": [
@@ -14,5 +14,12 @@
             "email": "asko@bien.ee"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "pestphp/pest": "^1.21"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
 }
