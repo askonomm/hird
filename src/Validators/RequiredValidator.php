@@ -14,7 +14,7 @@ class RequiredValidator implements Validator
      * Returns a boolean `true` when given `$value` is present 
      * and not empty. Returns `false` otherwise.
      *
-     * @param string $value
+     * @param mixed $value
      * @param mixed $modifier
      * @return boolean
      */

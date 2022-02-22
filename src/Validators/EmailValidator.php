@@ -14,7 +14,7 @@ class EmailValidator implements Validator
      * Returns a boolean `true` when given `$value` is a valid e-mail
      * address. Returns `false` otherwise.
      *
-     * @param string $value
+     * @param mixed $value
      * @param mixed $modifier
      * @return boolean
      */

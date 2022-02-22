@@ -14,7 +14,7 @@ class LenValidator implements Validator
      * Returns a boolean `true` when given `$value` is as long as
      * required. Returns `false` otherwise.
      *
-     * @param string $value
+     * @param mixed $value
      * @param mixed $modifier
      * @return boolean
      */
