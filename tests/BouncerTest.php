@@ -15,7 +15,9 @@ test('Validate an incorrect e-mail address', function () {
     $rules = ['email' => 'email'];
     $bouncer = new Bouncer($fields, $rules);
 
-    expect($bouncer->fails())->toBeTrue();
+    expect($bouncer->errors())->toBe([
+        'email is not a valid e-mail address.'
+    ]);
 });
 
 test('Validate a correct length of string', function () {
@@ -31,7 +33,9 @@ test('Validate an incorrect length of string', function () {
     $rules = ['string' => 'len:15'];
     $bouncer = new Bouncer($fields, $rules);
 
-    expect($bouncer->fails())->toBeTrue();
+    expect($bouncer->errors())->toBe([
+        'string is shorter than the required 15 characters.'
+    ]);
 });
 
 test('Validate a correct required string', function () {
@@ -43,9 +47,22 @@ test('Validate a correct required string', function () {
 });
 
 test('Validate an incorrect required string', function () {
-    $fields = ['string' => ''];
-    $rules = ['string' => 'required'];
+    $fields = [
+        'empty-string' => '',
+        'null-value' => null,
+        'false-value' => false,
+    ];
+
+    $rules = [
+        'empty-string' => 'required',
+        'null-value' => 'required',
+        'false-value' => 'required',
+    ];
+
     $bouncer = new Bouncer($fields, $rules);
 
-    expect($bouncer->fails())->toBeTrue();
+    expect($bouncer->errors())->toBe([
+        'empty-string is required.',
+        'null-value is required.',
+    ]);
 });

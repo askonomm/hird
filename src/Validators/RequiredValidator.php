@@ -18,7 +18,7 @@ class RequiredValidator implements Validator
      * @param mixed $modifier
      * @return boolean
      */
-    public static function validate(string $value, mixed $modifier = null): bool
+    public static function validate(mixed $value, mixed $modifier = null): bool
     {
         return isset($value) && $value !== '';
     }
