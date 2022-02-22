@@ -14,9 +14,9 @@ use Askonomm\Bouncer\Validators\RequiredValidator;
  * rules and optionally an array of validators. If no validators 
  * are provided, default validators will be used instead, which are:
  * 
- * - `Validators::len()`
- * - `Validators::email()`
- * - `Validators::required()`
+ * - `\Askonomm\Bouncer\Validators\LenValidator`
+ * - `\Askonomm\Bouncer\Validators\EmailValidator`
+ * - `\Askonomm\Bouncer\Validators\RequiredValidator`   
  * 
  * The key of each item in the `$fields` array must correspond to the 
  * the key of each item in the `$rules` array, so that Bouncer 

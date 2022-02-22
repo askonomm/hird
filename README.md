@@ -4,6 +4,8 @@
 
 An extensible validation library for your data with sane defaults.
 
+![Bouncer](https://user-images.githubusercontent.com/84135165/155233016-1dd9990f-ed60-44cc-b44c-ea90a11fc350.jpg)
+
 ## Installation
 
 You can install the package via composer:
@@ -16,9 +18,9 @@ composer require askonomm/bouncer
 
 The Bouncer takes in an array of fields, an array of rules and optionally an array of validators. If no validators are provided, default validators will be used instead, which are:
 
-- `Validators::len()`
-- `Validators::email()`
-- `Validators::required()`
+- `\Askonomm\Bouncer\Validators\LenValidator`
+- `\Askonomm\Bouncer\Validators\EmailValidator`
+- `\Askonomm\Bouncer\Validators\RequiredValidator`
 
 The key of each item in the `$fields` array must correspond to the the key of each item in the `$rules` array, so that Bouncer would know how to connect the two to each other.
 
