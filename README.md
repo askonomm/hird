@@ -4,9 +4,9 @@
 
 > Hirds, also known as housecarls, was a gathering of hirdmen, who functioned as the king's personal guards during the viking age and the early middle ages.
 
-Hird is an extensible validation library for your data with sane defaults.
+![Hird](https://user-images.githubusercontent.com/84135165/155371599-301b0df9-fa92-4902-a287-9c9950515c0c.jpeg)
 
-![Hird](https://user-images.githubusercontent.com/84135165/155233016-1dd9990f-ed60-44cc-b44c-ea90a11fc350.jpg)
+Hird is an extensible validation library for your data with sane defaults.
 
 ## Installation
 
