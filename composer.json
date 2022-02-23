@@ -1,11 +1,11 @@
 {
-    "name": "askonomm/bouncer",
+    "name": "askonomm/hird",
     "description": "An extensible validation library for your data with sane defaults.",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Askonomm\\Bouncer\\": "src/"
+            "Askonomm\\Hird\\": "src/"
         }
     },
     "authors": [

@@ -1,24 +1,26 @@
-# Bouncer
+# Hird
 
-[![Latest Stable Version](http://poser.pugx.org/askonomm/bouncer/v)](https://packagist.org/packages/askonomm/bouncer)
+[![Latest Stable Version](http://poser.pugx.org/askonomm/hird/v)](https://packagist.org/packages/askonomm/hird)
 
-An extensible validation library for your data with sane defaults.
+> Hirds, also known as housecarls, was a gathering of hirdmen, who functioned as the king's personal guards during the viking age and the early middle ages.
 
-![Bouncer](https://user-images.githubusercontent.com/84135165/155233016-1dd9990f-ed60-44cc-b44c-ea90a11fc350.jpg)
+Hird is an extensible validation library for your data with sane defaults.
+
+![Hird](https://user-images.githubusercontent.com/84135165/155233016-1dd9990f-ed60-44cc-b44c-ea90a11fc350.jpg)
 
 ## Installation
 
 You can install the package via composer:
 
 ```
-composer require askonomm/bouncer
+composer require askonomm/hird
 ```
 
 ## Usage
 
-The Bouncer takes in an array of `$fields` and an array of `$rules`.
+Hird takes in an array of `$fields` and an array of `$rules`.
 
-The key of each item in the `$fields` array must correspond to the the key of each item in the `$rules` array, so that Bouncer would know how to connect the two to each other.
+The key of each item in the `$fields` array must correspond to the the key of each item in the `$rules` array, so that Hird would know how to connect the two to each other.
 
 The `$rules` must have a value that is a string where the rules are separated by a `|` character, and each rule must match the key of the implemented validator, such as `len`, `email` or one that you have implemented yourself. Additionally, each rule can take in a modifier, where the name of the rule and the modifier is separated by a `:` character.
  
@@ -26,38 +28,38 @@ For example, say we have a validator called `len` which takes a modifier that le
 
 ### Example usage
 
-An example usage of Bouncer looks like this:
+An example usage of Hird looks like this:
 
 ```php
-use Askonomm\Bouncer\Bouncer;
+use Askonomm\Hird\Hird;
 
 $fields = ['email' => 'asko@bien.ee'];
 $rules = ['email' => 'required|email|len:5'];
-$bouncer = new Bouncer($fields, $rules);
+$hird = new Hird($fields, $rules);
 
-if ($bouncer->fails()) {
-    return $bouncer->errors();
+if ($hird->fails()) {
+    return $hird->errors();
 }
 ```
 
-From the above example, you can see that there are two Bouncer methods being used such as `$bouncer->fails()` and `$bouncer->errors()`. The `$bouncer->fails()` method will return a boolean depending on whether the validation failed or not, `true` if it did. The `$bouncer->errors()` method will return an array of all the errors that occured, as defined by the validators.
+From the above example, you can see that there are two Hird methods being used such as `$hird->fails()` and `$hird->errors()`. The `$hird->fails()` method will return a boolean depending on whether the validation failed or not, `true` if it did. The `$hird->errors()` method will return an array of all the errors that occured, as defined by the validators.
 
-You can also get the first error rather than all errors by using the method `$bouncer->firstError()`. 
+You can also get the first error rather than all errors by using the method `$hird->firstError()`. 
 
 ## Built-in validators
 
-There are a number of built-in validators available for use by default. If you want to remove a built-in validator, you can remove one using the `$bouncer->removeValidator('rule-name')` method.
+There are a number of built-in validators available for use by default. If you want to remove a built-in validator, you can remove one using the `$hird->removeValidator('rule-name')` method.
 
 ### `email`
 
 The `email` validator validates an e-mail address, and it is registered as the `email` rule.
 
 ```php
-use Askonomm\Bouncer\Bouncer;
+use Askonomm\Hird\Hird;
 
 $fields = ['email' => 'asko@bien.ee'];
 $rules = ['email' => 'email'];
-$bouncer = new Bouncer($fields, $rules);
+$hird = new Hird($fields, $rules);
 ```
 
 ### `len`
@@ -65,11 +67,11 @@ $bouncer = new Bouncer($fields, $rules);
 The `len` validator validates the length of a string, and it is registered as the `len` rule. The `len` validator also accepts, and requires, a modifier. A modifier can be passed to a rule by appending a color character `:` to it, and passing the modifier after it, like `len:8`.
 
 ```php
-use Askonomm\Bouncer\Bouncer;
+use Askonomm\Hird\Hird;
 
 $fields = ['password' => 'SuperSecretPassword'];
 $rules = ['password' => 'len:10'];
-$bouncer = new Bouncer($fields, $rules);
+$hird = new Hird($fields, $rules);
 ```
 
 ### `required`
@@ -77,24 +79,24 @@ $bouncer = new Bouncer($fields, $rules);
 The `required` validator validates the presence of value, and it is registered as the `required` rule. It will pass validation if the value is set and the value is not an empty string.
 
 ```php
-use Askonomm\Bouncer\Bouncer;
+use Askonomm\Hird\Hird;
 
 $fields = ['password' => 'SuperSecretPassword'];
 $rules = ['password' => 'required'];
-$bouncer = new Bouncer($fields, $rules);
+$hird = new Hird($fields, $rules);
 ```
 
 ## Creating validators
 
 You can also create your own validators, or replace existing ones if you're not happy with them. 
 
-**Note:** To replace an existing one, first remove the built-in validator via `$bouncer->removeValidator('rule-name')` and then add your own via `$bouncer->registerValidator('rule-name', $validator)`. 
+**Note:** To replace an existing one, first remove the built-in validator via `$hird->removeValidator('rule-name')` and then add your own via `$hird->registerValidator('rule-name', $validator)`. 
 
 
 A validator is a class that implements the `Validator` interface. A full example of a correct validator would look something like this:
 
 ```php
-use Askonomm\Bouncer\Validators\Validator;
+use Askonomm\Hird\Validators\Validator;
 
 class EmailValidator implements Validator
 {
@@ -127,4 +129,4 @@ class EmailValidator implements Validator
 
 You can see that there are two methods, one for validating the `$value` and the other for composing an error message if the validation fails. Both functions take in a `$modifier` argument, which will only have value if the validator is using modifiers. For example, the `len` validator is using modifiers to determine how long of a string should be required, by passing the rule in as `len:{number-of-characters}`. 
 
-Once you've created the class for your validator, you can register it by calling `$bouncer->registerValidator('rule-name', (new YourValidatorClass))`. 
+Once you've created the class for your validator, you can register it by calling `$hird->registerValidator('rule-name', (new YourValidatorClass))`. 

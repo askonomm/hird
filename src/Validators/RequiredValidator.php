@@ -1,6 +1,6 @@
 <?php
 
-namespace Askonomm\Bouncer\Validators;
+namespace Askonomm\Hird\Validators;
 
 /**
  * Implements a length validator that has a job of validating 

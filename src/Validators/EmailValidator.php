@@ -1,6 +1,6 @@
 <?php
 
-namespace Askonomm\Bouncer\Validators;
+namespace Askonomm\Hird\Validators;
 
 /**
  * Implements an e-mail validator that has a job 
