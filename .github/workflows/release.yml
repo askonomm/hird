@@ -23,7 +23,7 @@ jobs:
 
   build-zip:
     runs-on: ubuntu-latest
-    depends-on: [run-tests]
+    needs: [run-tests]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
