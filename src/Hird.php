@@ -100,7 +100,7 @@ class Hird
     private function validate(): void
     {
         foreach ($this->rules as $field => $rule) {
-            $value = $this->fields[$field];
+            $value = isset($this->fields[$field]) ? $this->fields[$field] : '';
 
             foreach (explode('|', $rule) as $item) {
                 if (str_contains($item, ':')) {
