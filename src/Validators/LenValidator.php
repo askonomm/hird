@@ -18,7 +18,7 @@ class LenValidator implements Validator
      * @param mixed $modifier
      * @return boolean
      */
-    public static function validate(mixed $value, mixed $modifier = null): bool
+    public static function validate(string $field, mixed $value, mixed $modifier = null): bool
     {
         // If no modifier present then this validator will always validate.
         if (!$modifier) {
