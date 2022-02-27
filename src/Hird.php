@@ -52,7 +52,6 @@ class Hird
         private array $rules,
     ) {
         $this->registerDefaultValidators();
-        $this->validate();
     }
 
     /**
@@ -126,6 +125,8 @@ class Hird
      */
     public function fails(): bool
     {
+        $this->validate();
+
         return count($this->errors) !== 0;
     }
 
