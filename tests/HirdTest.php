@@ -14,6 +14,7 @@ test('Validate an incorrect e-mail address', function () {
     $fields = ['email' => 'this-is-not-right'];
     $rules = ['email' => 'email'];
     $hird = new Hird($fields, $rules);
+    $hird->fails();
 
     expect($hird->errors())->toBe([
         'email is not a valid e-mail address.'
@@ -32,6 +33,7 @@ test('Validate an incorrect length of string', function () {
     $fields = ['string' => 'i-am-short'];
     $rules = ['string' => 'len:15'];
     $hird = new Hird($fields, $rules);
+    $hird->fails();
 
     expect($hird->errors())->toBe([
         'string is shorter than the required 15 characters.'
@@ -60,6 +62,7 @@ test('Validate an incorrect required string', function () {
     ];
 
     $hird = new Hird($fields, $rules);
+    $hird->fails();
 
     expect($hird->errors())->toBe([
         'empty-string is required.',
