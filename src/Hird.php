@@ -106,11 +106,11 @@ class Hird
                 if (str_contains($item, ':')) {
                     [$name, $modifier] = explode(':', $item);
 
-                    if (!$this->validators[$name]->validate($value, $modifier)) {
+                    if (!$this->validators[$name]->validate($field, $value, $modifier)) {
                         $this->errors[] = $this->validators[$name]->composeError($field, $modifier);
                     }
                 } else {
-                    if (!$this->validators[$item]->validate($value)) {
+                    if (!$this->validators[$item]->validate($field, $value)) {
                         $this->errors[] = $this->validators[$item]->composeError($field);
                     }
                 }
