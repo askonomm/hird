@@ -103,7 +103,9 @@ class Hird
 
             foreach (explode('|', $rule) as $item) {
                 if (str_contains($item, ':')) {
-                    [$name, $modifier] = explode(':', $item);
+                    $itemParts = explode(':', $item);
+                    $name = $itemParts[0];
+                    $modifier = implode(':', array_slice($itemParts, 1, count($itemParts) - 1, true));
 
                     if (!$this->validators[$name]->validate($field, $value, $modifier)) {
                         $this->errors[] = $this->validators[$name]->composeError($field, $modifier);
