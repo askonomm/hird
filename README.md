@@ -42,9 +42,11 @@ if ($hird->fails()) {
 }
 ```
 
-From the above example, you can see that there are two Hird methods being used such as `$hird->fails()` and `$hird->errors()`. The `$hird->fails()` method will return a boolean depending on whether the validation failed or not, `true` if it did. The `$hird->errors()` method will return an array of all the errors that occured, as defined by the validators.
+From the above example, you can see that there are two Hird methods being used such as `$hird->fails()` and `$hird->errors()`. The `$hird->fails()` method will run the validation and return a boolean depending on whether the validation failed or not, `true` if it did. The `$hird->errors()` method will return an array of all the errors that occured, as defined by the validators.
 
 You can also get the first error rather than all errors by using the method `$hird->firstError()`. 
+
+If you wish to run the validation without needing to call `$hird->fails()`, you can instead call `$hird->validate()`. 
 
 ## Built-in validators
 

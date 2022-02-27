@@ -96,7 +96,7 @@ class Hird
      *
      * @return void
      */
-    private function validate(): void
+    public function validate(): void
     {
         foreach ($this->rules as $field => $rule) {
             $value = isset($this->fields[$field]) ? $this->fields[$field] : '';
