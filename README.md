@@ -88,6 +88,18 @@ $rules = ['password' => 'required'];
 $hird = new Hird($fields, $rules);
 ```
 
+### 'date-format`
+
+The `date-format` validator validates the string format of a date, and is registered as the `date-format` rule. It will pass validation if the value is set and the value is in the format specified by the rule.
+
+```php
+use Askonomm\Hird\Hird;
+
+$fields = ['date' => '2020-09-17'];
+$rules = ['date' => 'date-format:Y-m-d'];
+$hird = new Hird($fields, $rules);
+```
+
 ## Creating validators
 
 You can also create your own validators, or replace existing ones if you're not happy with them. 

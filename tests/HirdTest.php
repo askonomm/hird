@@ -69,3 +69,22 @@ test('Validate an incorrect required string', function () {
         'null-value is required.',
     ]);
 });
+
+test('Validate a correct date format', function() {
+    $fields = ['date' => '2020-09-17 15:00:12'];
+    $rules = ['date' => 'date-format:Y-m-d H:i:s'];
+    $hird = new Hird($fields, $rules);
+    
+    expect($hird->fails())->tobeFalse();
+});
+
+test('Validate an incorrect correct date format', function() {
+    $fields = ['date' => '2020-09-17 15:00'];
+    $rules = ['date' => 'date-format:Y-m-d H:i:s'];
+    $hird = new Hird($fields, $rules);
+    $hird->fails();
+    
+    expect($hird->errors())->toBe([
+        'date does not match the required date format Y-m-d H:i:s.',
+    ]);
+});

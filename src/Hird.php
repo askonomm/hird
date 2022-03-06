@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Askonomm\Hird;
 
+use Askonomm\Hird\Validators\DateFormatValidator;
 use Askonomm\Hird\Validators\Validator;
 use Askonomm\Hird\Validators\LenValidator;
 use Askonomm\Hird\Validators\EmailValidator;
@@ -64,6 +65,7 @@ class Hird
         $this->registerValidator('len', (new LenValidator));
         $this->registerValidator('email', (new EmailValidator));
         $this->registerValidator('required', (new RequiredValidator));
+        $this->registerValidator('date-format', (new DateFormatValidator));
     }
 
     /**
