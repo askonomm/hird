@@ -88,7 +88,7 @@ $rules = ['password' => 'required'];
 $hird = new Hird($fields, $rules);
 ```
 
-### 'date-format`
+### `date-format`
 
 The `date-format` validator validates the string format of a date, and is registered as the `date-format` rule. It will pass validation if the value is set and the value is in the format specified by the rule.
 
