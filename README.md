@@ -142,4 +142,4 @@ class EmailValidator implements Validator
 
 You can see that there are two methods, one for validating the `$value` and the other for composing an error message if the validation fails. Both functions take in a `$modifier` argument, which will only have value if the validator is using modifiers. For example, the `len` validator is using modifiers to determine how long of a string should be required, by passing the rule in as `len:{number-of-characters}`.
 
-Once you've created the class for your validator, you can register it by calling `$hird->registerValidator('rule-name', (new YourValidatorClass))`.
+Once you've created the class for your validator, you can register it by calling `$hird->registerValidator('rule-name', YourValidator::class)`.
