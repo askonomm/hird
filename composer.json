@@ -1,18 +1,18 @@
 {
-    "name": "askonomm/hird",
+    "name": "asko/hird",
     "description": "An extensible validation library for your data with sane defaults.",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Askonomm\\Hird\\": "src/"
+            "Asko\\Hird\\": "src/"
         }
     },
     "authors": [
         {
             "name": "Asko Nomm",
-            "email": "asko@bien.ee",
-            "homepage": "https://bien.ee"
+            "email": "asko@asko.dev",
+            "homepage": "https://asko.dev"
         }
     ],
     "require": {

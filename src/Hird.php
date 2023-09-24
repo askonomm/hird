@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Askonomm\Hird;
+namespace Asko\Hird;
 
-use Askonomm\Hird\Validators\DateFormatValidator;
-use Askonomm\Hird\Validators\Validator;
-use Askonomm\Hird\Validators\LenValidator;
-use Askonomm\Hird\Validators\EmailValidator;
-use Askonomm\Hird\Validators\RequiredValidator;
+use Asko\Hird\Validators\DateFormatValidator;
+use Asko\Hird\Validators\Validator;
+use Asko\Hird\Validators\LenValidator;
+use Asko\Hird\Validators\EmailValidator;
+use Asko\Hird\Validators\RequiredValidator;
 
 /**
  * Hird takes in an array of `$fields` and an array of  
@@ -41,7 +41,7 @@ use Askonomm\Hird\Validators\RequiredValidator;
  * }
  * ```
  * 
- * @author Asko Nomm <asko@bien.ee>
+ * @author Asko Nomm <asko@asko.dev>
  */
 class Hird
 {
@@ -62,10 +62,10 @@ class Hird
      */
     private function registerDefaultValidators(): void
     {
-        $this->registerValidator('len', (new LenValidator));
-        $this->registerValidator('email', (new EmailValidator));
-        $this->registerValidator('required', (new RequiredValidator));
-        $this->registerValidator('date-format', (new DateFormatValidator));
+        $this->registerValidator('len', LenValidator::class);
+        $this->registerValidator('email', EmailValidator::class);
+        $this->registerValidator('required', RequiredValidator::class);
+        $this->registerValidator('date-format', DateFormatValidator::class);
     }
 
     /**
@@ -75,9 +75,18 @@ class Hird
      * @param Validator $validator
      * @return void
      */
-    public function registerValidator(string $ruleName, Validator $validator): void
+    public function registerValidator(string $ruleName, string $validator): void
     {
-        $this->validators[$ruleName] = $validator;
+        $class = new \ReflectionClass($validator);
+        $instance = null;
+
+        if ($class->getConstructor() !== null) {
+            $instance = $class->newInstanceArgs([$this->fields]);
+        } else {
+            $instance = $class->newInstance();
+        }
+
+        $this->validators[$ruleName] = $instance;
     }
 
     /**

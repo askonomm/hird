@@ -1,13 +1,15 @@
 <?php
 
-namespace Askonomm\Hird\Validators;
+declare(strict_types=1);
+
+namespace Asko\Hird\Validators;
 
 /**
  * Implements a DateFormat validator that has a job 
  * of validating that a given date is in the correct
  * format.
  * 
- * @author Asko Nomm <asko@bien.ee>
+ * @author Asko Nomm <asko@asko.dev>
  */
 class DateFormatValidator implements Validator
 {
@@ -20,12 +22,12 @@ class DateFormatValidator implements Validator
      * @param mixed $modifier
      * @return boolean
      */
-    public static function validate(string $field, mixed $value, mixed $modifier = null): bool
+    public function validate(string $field, mixed $value, mixed $modifier = null): bool
     {
         if ($value) {
             $datetime = \DateTime::createFromFormat($modifier, $value);
 
-            return $datetime !== false && !array_sum($datetime::getLastErrors());
+            return $datetime !== false;
         }
 
         return true;
@@ -38,8 +40,8 @@ class DateFormatValidator implements Validator
      * @param mixed $modifier
      * @return string
      */
-    public static function composeError(string $field, mixed $modifier = null): string
+    public function composeError(string $field, mixed $modifier = null): string
     {
-        return "${field} does not match the required date format ${modifier}.";
+        return "{$field} does not match the required date format {$modifier}.";
     }
 }

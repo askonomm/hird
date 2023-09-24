@@ -1,12 +1,14 @@
 <?php
 
-namespace Askonomm\Hird\Validators;
+declare(strict_types=1);
+
+namespace Asko\Hird\Validators;
 
 /**
  * Implements an e-mail validator that has a job 
  * of validating e-mail addresses.
  * 
- * @author Asko Nomm <asko@bien.ee>
+ * @author Asko Nomm <asko@asko.dev>
  */
 class EmailValidator implements Validator
 {
@@ -18,9 +20,9 @@ class EmailValidator implements Validator
      * @param mixed $modifier
      * @return boolean
      */
-    public static function validate(string $field, mixed $value, mixed $modifier = null): bool
+    public function validate(string $field, mixed $value, mixed $modifier = null): bool
     {
-        return filter_var($value, FILTER_VALIDATE_EMAIL);
+        return !!filter_var($value, FILTER_VALIDATE_EMAIL);
     }
 
     /**
@@ -30,8 +32,8 @@ class EmailValidator implements Validator
      * @param mixed $modifier
      * @return string
      */
-    public static function composeError(string $field, mixed $modifier = null): string
+    public function composeError(string $field, mixed $modifier = null): string
     {
-        return "${field} is not a valid e-mail address.";
+        return "{$field} is not a valid e-mail address.";
     }
 }

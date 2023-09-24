@@ -1,9 +1,11 @@
 <?php
 
-namespace Askonomm\Hird\Validators;
+declare(strict_types=1);
+
+namespace Asko\Hird\Validators;
 
 interface Validator
 {
-    public static function validate(string $field, mixed $value, mixed $modifier = null): bool;
-    public static function composeError(string $field, mixed $modifier = null): string;
+    public function validate(string $field, mixed $value, mixed $modifier = null): bool;
+    public function composeError(string $field, mixed $modifier = null): string;
 }

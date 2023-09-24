@@ -1,12 +1,14 @@
 <?php
 
-namespace Askonomm\Hird\Validators;
+declare(strict_types=1);
+
+namespace Asko\Hird\Validators;
 
 /**
  * Implements a length validator that has a job of validating 
  * that a given string is of correct length.
  * 
- * @author Asko Nomm <asko@bien.ee>
+ * @author Asko Nomm <asko@asko.dev>
  */
 class LenValidator implements Validator
 {
@@ -18,7 +20,7 @@ class LenValidator implements Validator
      * @param mixed $modifier
      * @return boolean
      */
-    public static function validate(string $field, mixed $value, mixed $modifier = null): bool
+    public function validate(string $field, mixed $value, mixed $modifier = null): bool
     {
         // If no modifier present then this validator will always validate.
         if (!$modifier) {
@@ -39,8 +41,8 @@ class LenValidator implements Validator
      * @param mixed $modifier
      * @return string
      */
-    public static function composeError(string $field, mixed $modifier = null): string
+    public function composeError(string $field, mixed $modifier = null): string
     {
-        return "{$field} is shorter than the required ${modifier} characters.";
+        return "{$field} is shorter than the required {$modifier} characters.";
     }
 }
