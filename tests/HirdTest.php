@@ -94,12 +94,8 @@ test('Validate using a overwritten field name', function () {
     $fieldNames = ['date' => 'Date'];
     $rules = ['date' => 'date-format:Y-m-d H:i:s'];
 
-    $hird = new Hird(
-        fields: $fields,
-        rules: $rules,
-        fieldNames: $fieldNames
-    );
-
+    $hird = new Hird($fields, $rules);
+    $hird->setFieldNames($fieldNames);
     $hird->fails();
 
     expect($hird->errors())->toBe([

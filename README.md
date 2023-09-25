@@ -34,9 +34,8 @@ An example usage of Hird looks like this:
 use Askonomm\Hird\Hird;
 
 $fields = ['email' => 'asko@asko.dev'];
-$fieldNames = ['email' => 'E-mail'];
 $rules = ['email' => 'required|email|len:5'];
-$hird = new Hird($fields, $rules, $fieldNames);
+$hird = new Hird($fields, $rules);
 
 if ($hird->fails()) {
     return $hird->errors();
@@ -49,7 +48,13 @@ You can also get the first error rather than all errors by using the method `$hi
 
 If you wish to run the validation without needing to call `$hird->fails()`, you can instead call `$hird->validate()`.
 
-Another thing you may notice is the presence of `$fieldNames`, which is a way overwriting the field names for use within the error messages, so that `email` could become `E-mail` when shown to the user. If you don't care about this then you can entirely skip this as only the `$fields` and `$rules` are required for Hird to work.
+#### Overwrite field names in validation messages
+
+You can use `$hird->setFieldNames` to overwrite the field names for use within the error messages, so that `email` could become `E-mail` when shown to the user. Simply provide an array where the keys are the actual field names you instantiated Hird with and the values the names you'd like used in validation messages, like so:
+
+```php
+$hird->setFieldNames(['email' => 'E-mail']);
+```
 
 ## Built-in validators
 
