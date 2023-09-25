@@ -88,3 +88,21 @@ test('Validate an incorrect correct date format', function () {
         'date does not match the required date format Y-m-d H:i:s.',
     ]);
 });
+
+test('Validate using a overwritten field name', function () {
+    $fields = ['date' => '2020-09-17 15:00'];
+    $fieldNames = ['date' => 'Date'];
+    $rules = ['date' => 'date-format:Y-m-d H:i:s'];
+
+    $hird = new Hird(
+        fields: $fields,
+        rules: $rules,
+        fieldNames: $fieldNames
+    );
+
+    $hird->fails();
+
+    expect($hird->errors())->toBe([
+        'Date does not match the required date format Y-m-d H:i:s.',
+    ]);
+});

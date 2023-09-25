@@ -12,6 +12,12 @@ namespace Asko\Hird\Validators;
  */
 class EmailValidator implements Validator
 {
+    public function __construct(
+        private array $fields,
+        private array $fieldNames,
+    ) {
+    }
+
     /**
      * Returns a boolean `true` when given `$value` is a valid e-mail
      * address. Returns `false` otherwise.
@@ -34,6 +40,6 @@ class EmailValidator implements Validator
      */
     public function composeError(string $field, mixed $modifier = null): string
     {
-        return "{$field} is not a valid e-mail address.";
+        return "{$this->fieldNames[$field]} is not a valid e-mail address.";
     }
 }

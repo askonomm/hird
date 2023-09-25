@@ -12,6 +12,12 @@ namespace Asko\Hird\Validators;
  */
 class LenValidator implements Validator
 {
+    public function __construct(
+        private array $fields,
+        private array $fieldNames,
+    ) {
+    }
+
     /**
      * Returns a boolean `true` when given `$value` is as long as
      * required. Returns `false` otherwise.
@@ -43,6 +49,6 @@ class LenValidator implements Validator
      */
     public function composeError(string $field, mixed $modifier = null): string
     {
-        return "{$field} is shorter than the required {$modifier} characters.";
+        return "{$this->fieldNames[$field]} is shorter than the required {$modifier} characters.";
     }
 }

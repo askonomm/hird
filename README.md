@@ -34,8 +34,9 @@ An example usage of Hird looks like this:
 use Askonomm\Hird\Hird;
 
 $fields = ['email' => 'asko@asko.dev'];
+$fieldNames = ['email' => 'E-mail'];
 $rules = ['email' => 'required|email|len:5'];
-$hird = new Hird($fields, $rules);
+$hird = new Hird($fields, $rules, $fieldNames);
 
 if ($hird->fails()) {
     return $hird->errors();
@@ -47,6 +48,8 @@ From the above example, you can see that there are two Hird methods being used s
 You can also get the first error rather than all errors by using the method `$hird->firstError()`.
 
 If you wish to run the validation without needing to call `$hird->fails()`, you can instead call `$hird->validate()`.
+
+Another thing you may notice is the presence of `$fieldNames`, which is a way overwriting the field names for use within the error messages, so that `email` could become `E-mail` when shown to the user. If you don't care about this then you can entirely skip this as only the `$fields` and `$rules` are required for Hird to work.
 
 ## Built-in validators
 
@@ -113,6 +116,12 @@ use Asko\Hird\Validators\Validator;
 
 class EmailValidator implements Validator
 {
+    public function __construct(
+        private array $fields, // all fields data
+        private array $fieldNames, // names of fields
+    ){
+    }
+
     /**
      * Returns a boolean `true` when given `$value` is a valid e-mail
      * address. Returns `false` otherwise.

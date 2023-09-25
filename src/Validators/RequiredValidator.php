@@ -12,6 +12,12 @@ namespace Asko\Hird\Validators;
  */
 class RequiredValidator implements Validator
 {
+    public function __construct(
+        private array $fields,
+        private array $fieldNames,
+    ) {
+    }
+
     /**
      * Returns a boolean `true` when given `$value` is present 
      * and not empty. Returns `false` otherwise.
@@ -34,6 +40,6 @@ class RequiredValidator implements Validator
      */
     public function composeError(string $field, mixed $modifier = null): string
     {
-        return "{$field} is required.";
+        return "{$this->fieldNames[$field]} is required.";
     }
 }

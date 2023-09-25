@@ -47,11 +47,14 @@ class Hird
 {
     private array $errors = [];
     private array $validators = [];
+    private array $fieldNames = [];
 
     public function __construct(
         private array $fields,
         private array $rules,
+        array $fieldNames = []
     ) {
+        $this->composeFieldNames($fieldNames);
         $this->registerDefaultValidators();
     }
 
@@ -69,6 +72,23 @@ class Hird
     }
 
     /**
+     * Composes the field names array.
+     *
+     * @param array $fieldNames
+     * @return void
+     */
+    private function composeFieldNames(array $fieldNames): void
+    {
+        $updatedFieldNames = [];
+
+        foreach ($this->fields as $field => $value) {
+            $updatedFieldNames[$field] = $fieldNames[$field] ?? $field;
+        }
+
+        $this->fieldNames = $updatedFieldNames;
+    }
+
+    /**
      * Registers a validator to a `$ruleName`.
      *
      * @param string $ruleName
@@ -81,7 +101,7 @@ class Hird
         $instance = null;
 
         if ($class->getConstructor() !== null) {
-            $instance = $class->newInstanceArgs([$this->fields]);
+            $instance = $class->newInstanceArgs([$this->fields, $this->fieldNames]);
         } else {
             $instance = $class->newInstance();
         }

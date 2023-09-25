@@ -13,6 +13,12 @@ namespace Asko\Hird\Validators;
  */
 class DateFormatValidator implements Validator
 {
+    public function __construct(
+        private array $fields,
+        private array $fieldNames,
+    ) {
+    }
+
     /**
      * Returns a boolean `true` when given `$value` is a valid e-mail
      * address. Returns `false` otherwise.
@@ -42,6 +48,6 @@ class DateFormatValidator implements Validator
      */
     public function composeError(string $field, mixed $modifier = null): string
     {
-        return "{$field} does not match the required date format {$modifier}.";
+        return "{$this->fieldNames[$field]} does not match the required date format {$modifier}.";
     }
 }
