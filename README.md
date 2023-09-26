@@ -56,6 +56,16 @@ You can use `$hird->setFieldNames` to overwrite the field names for use within t
 $hird->setFieldNames(['email' => 'E-mail']);
 ```
 
+#### Manually add an error
+
+In some cases you want to use the same validator provided error messages, but want to mix-match them with validations you do outside of Hird. Well, for that you can use the `addError` method, like so:
+
+```php
+$hird->addError("My error message goes here");
+```
+
+Which will prompt Hird validation to fail and show that error message.
+
 ## Built-in validators
 
 There are a number of built-in validators available for use by default. If you want to remove a built-in validator, you can remove one using the `$hird->removeValidator('rule-name')` method.

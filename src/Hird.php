@@ -119,6 +119,17 @@ class Hird
     }
 
     /**
+     * Manually adds an error.
+     *
+     * @param string $error
+     * @return void
+     */
+    public function addError(string $error): void
+    {
+        $this->errors[] = $error;
+    }
+
+    /**
      * Runs `$this->rules` over `$this->fields` to construct 
      * potential errors that will be stored as an array of strings 
      * in `$this->errors`.
